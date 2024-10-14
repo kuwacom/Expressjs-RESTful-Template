@@ -2,5 +2,5 @@
 node_modules/
 dist/
 
-# mac
-.DS_Store
+# env
+.env
