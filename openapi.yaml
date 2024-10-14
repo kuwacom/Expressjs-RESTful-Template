@@ -1,0 +1,119 @@
+openapi: 3.0.1
+
+info:
+  title: Expressjs-Restful-Template
+  description: ユーザーの登録および取得を行うAPI
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/v1
+    description: ローカル開発用サーバー
+
+paths:
+  /user:
+    post:
+      summary: 新しいユーザーを登録する
+      description: 名前を入力して新しいユーザーを登録します。
+      tags:
+        - ユーザー
+      requestBody:
+        description: 登録するユーザーのデータ
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 山田 太郎
+              required:
+                - name
+      responses:
+        '201':
+          description: ユーザーの登録が成功した場合
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: ユーザー登録に失敗した場合
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+    get:
+      summary: 全ユーザーの取得
+      description: 登録されている全てのユーザーを取得します。
+      tags:
+        - ユーザー
+      responses:
+        '200':
+          description: ユーザーの一覧を取得した場合
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '500':
+          description: ユーザーの取得に失敗した場合
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /user/{id}:
+    get:
+      summary: 指定したIDのユーザーを取得する
+      description: 指定したIDのユーザー情報を取得します。
+      tags:
+        - ユーザー
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 取得するユーザーのID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 指定したIDのユーザーを取得した場合
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: 指定したIDのユーザーが存在しない場合
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: ユーザーの取得に失敗した場合
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: 山田 太郎
+        createdAt:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00.000Z'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: User not found
