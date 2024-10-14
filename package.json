@@ -1,0 +1,31 @@
+{
+  "name": "expressjs-restful-template",
+  "description": "expressjsを使ったrestfullなAPIの実装例",
+  "version": "1.0.0",
+  "author": "kuwa",
+  "keywords": [
+    "typescript",
+    "expressjs",
+    "template"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "wintest": "title %npm_config_id% && tsc && tsc-alias && node ./dist/index.js",
+    "test": "tsc && tsc-alias && node ./dist/index.js",
+    "build": "tsc && tsc-alias",
+    "winstart": "title %npm_config_id% && node ./dist/index.js",
+    "start": "node ./dist/index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "tslog": "^4.9.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.5"
+  }
+}
